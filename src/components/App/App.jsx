@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { MainContainer } from "./App.styled";
 // import { Section } from "../Section/Section";
 import { FeedbackOptions } from "../FeedbackOptions/FeedbackOptions";
-// import { Statistics } from "../Statistics/Statistics";
+import { Statistics } from "../Statistics/Statistics";
 // import { Notification } from "../Notification/Notification";
 
 export class App extends Component {
@@ -28,8 +28,10 @@ export class App extends Component {
   };
 
    render() {
-    
+    const { good, neutral, bad } = this.state;
     const options = Object.keys(this.state);
+    const totalFeedback = this.countTotalFeedback();
+    const totalPercentage = this.countPositiveFeedbackPercentage();
     
     return (
       <MainContainer>
@@ -38,7 +40,13 @@ export class App extends Component {
             onLeaveFeedback={this.onLeaveFeedback}
             options={options}
           />
-        
+        <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedback}
+              positivePercentage={totalPercentage}
+            />
       </MainContainer>
     );
   }
